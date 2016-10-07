@@ -16,13 +16,23 @@ ls -a | grep _L001_R1_001.fastq.gz | while read -r line ; do
 done
 
 #UnuiqueCount
-# Count uniquely mapped paired end reads in bam files under one directory
+# Count uniquely mapped  reads in bam files under one directory
 
+# paired end reads
 cd bam_dir
 for file in *.bam; do
 fileout="$file""_out.txt"
 echo "$fileout"
 samtools view -F 0x4 $file | cut -f 1 | sort | uniq | wc -l > $fileout
 done
+
+# singe end reads
+cd bam_dir
+for file in *.bam; do
+fileout="$file""_out.txt"
+echo "$fileout"
+samtools view -F 0x904 -c $file > $fileout
+done
+
 
 
