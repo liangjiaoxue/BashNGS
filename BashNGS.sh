@@ -33,5 +33,24 @@ echo "$fileout"
 samtools view -F 0x904 -c $file > $fileout
 done
 
+#####################################################################
+## generate shell file
+cd file_dir
+master="Shell_master.sh"
+echo "#"'!'/bin/bash >$master
+for file in *.tab; do
+fileout=$file"_out.txt"
+sh_worker=$file"_run.sh"
+echo "#"'!'/bin/bash >$sh_worker
+echo "wc -l $file >$fileout" >>$sh_worker
+echo "qsub rcc-30d "$sh_worker >>$master
+done
+
+
+
+
+
+
+
 
 
