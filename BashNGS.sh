@@ -1,4 +1,15 @@
 
+# Fastq count
+cd 
+for file in *.fastq ; do 
+sample=${file%.fastq}  
+out=$sample"_out_num.txt"
+wc -l $file >$out &
+done
+
+
+
+
 # FastqMerge
 
 # Merge fastq.gz files in one directory
