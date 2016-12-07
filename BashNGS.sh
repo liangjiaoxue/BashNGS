@@ -25,6 +25,20 @@ ls -a | grep _L001_R1_001.fastq.gz | while read -r line ; do
    cat $sample*"_R2_001.fastq.gz" >$sample"_R2.fq.gz"
 done
 
+
+#### version with two layers of folders
+for folder in Sample_*
+do
+echo "Sample ID "$folder
+out1="/sdb/01fastq/"$folder"_R1.fq.gz"
+out2="/sdb/01fastq/"$folder"_R2.fq.gz"
+echo "Input set1 "$out1
+echo "Input set2 "$out2
+cat ./$folder/*R1*.gz >$out1 
+cat ./$folder/*R2*.gz >$out2 
+done
+
+
 #UnuiqueCount
 # Count uniquely mapped  reads in bam files under one directory
 
