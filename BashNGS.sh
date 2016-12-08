@@ -11,21 +11,23 @@ done
 # zip and index vcf in worker shell files
 cd 
 master="Shell_master_zip.sh"
-echo "#"'!'/bin/bash >$master
+printf "#"'!'/bin/bash"\n" >$master
 index=0
-for file in *.vcf
+for file in *.vcf.gz
 do
   index=$(($index+1))
   sh_worker="run"$index"_"$file"_run.sh"
-  echo "#"'!'/bin/bash >$sh_worker
+  printf "#"'!'/bin/bash"\n" >$sh_worker
   file2=$file".gz"
-  echo "/usr/local/apps/samtools/1.2/bin/bgzip $file" >>$sh_worker
-  echo "/usr/local/apps/samtools/1.2/bin/tabix -p vcf $file2" >>$sh_worker
-  echo "./"$sh_worker >>$master
+  printf "/usr/local/apps/samtools/1.2/bin/bgzip $file\n" >>$sh_worker
+  printf "/usr/local/apps/samtools/1.2/bin/tabix -p vcf $file2\n" >>$sh_worker
+  printf "./"$sh_worker"\n" >>$master
 done
+
 
 chmod 777 *.sh
 ./Shell_master_zip.sh
+
 
 
 
