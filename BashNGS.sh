@@ -13,7 +13,7 @@ cd
 master="Shell_master_zip.sh"
 printf "#"'!'/bin/bash"\n" >$master
 index=0
-for file in *.vcf.gz
+for file in *.vcf
 do
   index=$(($index+1))
   sh_worker="run"$index"_"$file"_run.sh"
@@ -91,12 +91,4 @@ echo "#"'!'/bin/bash >$sh_worker
 echo "wc -l $file >$fileout" >>$sh_worker
 echo "qsub rcc-30d "$sh_worker >>$master
 done
-
-
-
-
-
-
-
-
 
