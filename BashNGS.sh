@@ -8,6 +8,15 @@ wc -l $file >$out &
 done
 
 
+# total length of fastq
+
+cd 
+for file in *.fastq; do
+out=$file"_out.txt"
+cat $file | awk 'BEGIN{sum=0;}{if(NR%4==2){sum+=length($0);}}END{print sum;}' >$out
+done
+
+
 # zip and index vcf in worker shell files
 cd 
 master="Shell_master_zip.sh"
