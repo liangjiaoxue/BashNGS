@@ -17,6 +17,13 @@ cat $file | awk 'BEGIN{sum=0;}{if(NR%4==2){sum+=length($0);}}END{print sum;}' >$
 done
 
 
+
+# extract fasta with one ID
+awk -v seq="Consensus_utg002307l" -v RS='>' '$1 == seq {print RS $0}' Pop717_racon_out_test.fasta  >Pop717_s1.fa
+
+
+
+
 # zip and index vcf in worker shell files
 cd 
 master="Shell_master_zip.sh"
