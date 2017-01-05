@@ -45,6 +45,33 @@ chmod 777 *.sh
 ./Shell_master_zip.sh
 
 
+##########################
+## generat long shell file
+cd /lustre1/lxue/SNP717v2/07Phasing/sort
+master="Shell_master_sort_vcf.sh"
+printf "#"'!'/bin/bash"\n" >$master
+index=0
+for file in ../phased/*.vcf.gz
+do
+  shortname=${file##*/}
+  sample=${shortname%%.vcf.gz}
+  out=$sample"_sort.vcf"
+  index=$(($index+1))
+  sh_worker="run"$index"_"$out"_run.sh"
+  printf "qsub "$sh_worker"\n" >>$master
+  printf "#"'!'/bin/bash"\n" >$sh_worker
+  printf "#PBS -N vcf_sort\n" >>$sh_worker
+  printf "#PBS -q batch\n" >>$sh_worker 
+  printf "#PBS -l nodes=1:ppn=1:HIGHMEM\n" >>$sh_worker 
+  printf "#PBS -l walltime=10:00:00\n" >>$sh_worker 
+  printf "cd /lustre1/lxue/SNP717v2/07Phasing/sort" >>$sh_worker 
+  printf "module load python/3.4.3" >>$sh_worker  
+  printf "python VCF_Haplo_sorting_wo_merge.py "$file" \\" >>$sh_worker  
+  printf "\n" >>$sh_worker  
+  printf "  ../Potra01b_merge_out.delta_FX.vcf  ../Palba_ref_v3_PASS.vcf  "$out >>$sh_worker  
+done
+
+
 
 
 # FastqMerge
