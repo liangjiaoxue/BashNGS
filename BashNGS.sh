@@ -8,6 +8,16 @@ wc -l $file >$out &
 done
 
 
+outfile="ReadNumber.tab"
+cat *num.txt | while read line
+do 
+  a=($line)
+  num=$((${a[0]}/4))
+  printf ${a[1]}"\t"$num"\n" >>$outfile
+done
+
+
+
 # total length of fastq
 
 cd 
