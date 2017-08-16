@@ -17,6 +17,12 @@ do
 done
 
 
+## SAMBAMBA
+cd /lustre1/reeves17/SNP717_2nd/06Hapcut/pac_sam
+sambamba=/home/lxue/tool/sambamba/sambamba_v0.6.5
+$sambamba merge -t 5 Pacbio_merge_new.bam *.sorted.bam &
+
+
 
 # total length of fastq
 
