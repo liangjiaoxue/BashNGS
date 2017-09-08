@@ -23,6 +23,22 @@ sambamba=/home/lxue/tool/sambamba/sambamba_v0.6.5
 $sambamba merge -t 5 Pacbio_merge_new.bam *.sorted.bam &
 
 
+## Merge files with seperations
+out=haplotype_out_All.tab
+array=(*.txt)
+filenum=${#array[@]}
+tracking=0
+for file in "${array[@]}"
+do
+    tracking=$(($tracking+1))
+    echo $file
+    cat $file >>$out
+    if (($tracking < $filenum )); then
+         printf '********'"\n" >>$out
+    fi
+done
+
+
 
 # total length of fastq
 
