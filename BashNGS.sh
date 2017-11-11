@@ -1,4 +1,4 @@
-
+###################################################
 # Fastq counting
 cd 
 for file in *.fastq ; do 
@@ -15,6 +15,28 @@ do
   num=$((${a[0]}/4))
   printf ${a[1]}"\t"$num"\n" >>$outfile
 done
+
+###################################################
+cd /lustre1/lxue/IsoSeq2/20NGS/00fastq
+for f in *.gz; do
+out=$f"sum.txt"
+zcat  $f | wc -l >$out &
+done
+
+
+cd /lustre1/lxue/IsoSeq2/20NGS/00fastq
+
+outfile="ReadNumber2.tab"
+grep "" *sum.txt | while read line
+do 
+  a=${line%%:*}
+  num1=${line##*:}
+  num=$(($num1/4))
+  printf $a"\t"$num"\n" >>$outfile
+done
+
+
+
 
 
 ## SAMBAMBA
