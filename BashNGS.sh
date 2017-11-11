@@ -17,6 +17,7 @@ do
 done
 
 ###################################################
+# fastq counts .gz version
 cd /lustre1/lxue/IsoSeq2/20NGS/00fastq
 for f in *.gz; do
 out=$f"sum.txt"
